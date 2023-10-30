@@ -1,0 +1,66 @@
+{% extends "template.html" %}
+
+{% block css_link %}
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-4bw+/aepP/YC94hEpVNVgiZdgIC5+VKNBQNGCHeKRQN+PtmoHDEXuppvnDJzQIu9" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
+{% endblock %}
+{% block content %}
+  <div id = "home">
+    <div id = "forecastInfo">
+      <div class="container">
+        <div class="row">
+          <div class="infoFadeToday col-sm" align = "center">
+            <b>Today</b>
+            <br><br>
+            <b class = "temp">{{ info.Tmax[0] }}</b>
+            <br>
+            <b class = "temp">{{ info.Tmin[0] }}</b>
+          </div>
+          <div class="infoFade col-sm" align = "center">
+            <b>{{ info.days[1] }}</b>
+            <br><br>
+            <b class = "temp">{{ info.Tmax[1] }}</b>
+            <br>
+            <b class = "temp">{{ info.Tmin[1] }}</b>
+          </div>
+          <div class="infoFade col-sm" align = "center">
+            <b>{{ info.days[2] }}</b>
+            <br><br>
+            <b class = "temp">{{ info.Tmax[2] }}</b>
+            <br>
+            <b class = "temp">{{ info.Tmin[2] }}</b>
+          </div>
+          <div class="infoFade col-sm" align = "center">
+            <b>{{ info.days[3] }}</b>
+            <br><br>
+            <b class = "temp">{{ info.Tmax[3] }}</b>
+            <br>
+            <b class = "temp">{{ info.Tmin[3] }}</b>
+          </div>
+          <div class="infoFade col-sm" align = "center">
+            <b>{{ info.days[4] }}</b>
+            <br><br>
+            <b class = "temp">{{ info.Tmax[4] }}</b>
+            <br>
+            <b class = "temp">{{ info.Tmin[4] }}</b>
+          </div>
+          <div class="infoFade col-sm" align = "center">
+            <b>{{ info.days[5] }}</b>
+            <br><br>
+            <b class = "temp">{{ info.Tmax[5] }}</b>
+            <br>
+            <b class = "temp">{{ info.Tmin[5] }}</b>
+          </div>
+          <div class="infoFade col-sm" align = "center">
+            <b>{{ info.days[6] }}</b>
+            <br><br>
+            <b class = "temp">{{ info.Tmax[6] }}</b>
+            <br>
+            <b class = "temp">{{ info.Tmin[6] }}</b>
+          </div>
+        </div>
+      </div>
+    </div> 
+  </div>
+  <p>{{ info.date }}</p>
+{% endblock %}

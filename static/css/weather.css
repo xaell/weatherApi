@@ -1,0 +1,44 @@
+*{
+    margin: 0 auto;
+    padding: 0;
+}
+
+#home{
+    background-image: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.3)),url("../img/cloud_loop.gif");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 100vh;
+    /*width: 100%;*/
+    padding-top: 210px;
+}
+#forecastInfo{
+    position: absolute;
+    background: rgb(196,237,255);
+    background: linear-gradient(90deg, rgba(196,237,255,0.23974082073434122) 0%, rgba(196,237,255,0.611231101511879) 33%, rgba(196,237,255,0.6803455723542117) 71%, rgba(196,237,255,0.24838012958963285) 100%);
+    
+    padding: 0px 70px;
+    align-self: center;
+
+    height: 200px;
+    width: 100%;
+}
+
+.infoFade{
+    height: 200px;
+    margin: 0px 5px;
+    padding: 20px 0px 0px 0px;
+    background: rgb(255,255,255);
+    background: linear-gradient(180deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.2654028436018957) 8%, rgba(255,255,255,0.5047393364928909) 17%, rgba(255,255,255,0.49763033175355453) 71%, rgba(255,255,255,0.2511848341232228) 85%, rgba(255,255,255,0) 100%);
+}
+
+.infoFadeToday{
+    height: 200px;
+    margin: 0px 5px;
+    padding: 20px 0px 0px 0px;
+    background: rgb(255,223,160);
+    background: linear-gradient(180deg, rgba(255,223,160,0.19194312796208535) 0%, rgba(255,223,160,0.4218009478672986) 8%, rgba(255,223,160,0.5260663507109005) 17%, rgba(255,223,160,0.5260663507109005) 71%, rgba(255,223,160,0.3601895734597157) 85%, rgba(255,223,160,0.17298578199052128) 100%);
+}
+.temp{
+    color: rgb(159, 159, 159);
+    font-size: 18px;
+}
