@@ -12,54 +12,45 @@
           <div class="infoFadeToday col-sm" align = "center">
             <b>Today</b>
             <br><br>
-            <b class = "temp">{{ info.Tmax[0] }}</b>
-            <br>
-            <b class = "temp">{{ info.Tmin[0] }}</b>
+            <b class = "temp">{{info.maxTemp[0]}}</b>
           </div>
           <div class="infoFade col-sm" align = "center">
             <b>{{ info.days[1] }}</b>
             <br><br>
-            <b class = "temp">{{ info.Tmax[1] }}</b>
-            <br>
-            <b class = "temp">{{ info.Tmin[1] }}</b>
+            <b class = "temp">{{info.maxTemp[1]}}</b>
           </div>
           <div class="infoFade col-sm" align = "center">
             <b>{{ info.days[2] }}</b>
             <br><br>
-            <b class = "temp">{{ info.Tmax[2] }}</b>
-            <br>
-            <b class = "temp">{{ info.Tmin[2] }}</b>
+            <b class = "temp">{{info.maxTemp[2]}}</b>
           </div>
           <div class="infoFade col-sm" align = "center">
             <b>{{ info.days[3] }}</b>
             <br><br>
-            <b class = "temp">{{ info.Tmax[3] }}</b>
-            <br>
-            <b class = "temp">{{ info.Tmin[3] }}</b>
+            <b class = "temp">{{info.maxTemp[3]}}</b>
           </div>
           <div class="infoFade col-sm" align = "center">
             <b>{{ info.days[4] }}</b>
             <br><br>
-            <b class = "temp">{{ info.Tmax[4] }}</b>
-            <br>
-            <b class = "temp">{{ info.Tmin[4] }}</b>
+            <b class = "temp">{{info.maxTemp[4]}}</b>
           </div>
           <div class="infoFade col-sm" align = "center">
             <b>{{ info.days[5] }}</b>
             <br><br>
-            <b class = "temp">{{ info.Tmax[5] }}</b>
-            <br>
-            <b class = "temp">{{ info.Tmin[5] }}</b>
+            <b class = "temp">{{info.maxTemp[5]}}</b>
           </div>
           <div class="infoFade col-sm" align = "center">
             <b>{{ info.days[6] }}</b>
             <br><br>
-            <b class = "temp">{{ info.Tmax[6] }}</b>
-            <br>
-            <b class = "temp">{{ info.Tmin[6] }}</b>
+            <b class = "temp">{{info.maxTemp[6]}}</b>
           </div>
         </div>
       </div>
+      <form action = "#" method="post" align = "center">
+        <p>Country name: <input type = "text" name = "countryName"></p>
+        <p>City name: <input type = "text" name = "cityName"></p>
+        <p><input type = "submit" value="submit"></p>
+      </form>
     </div> 
   </div>
   <p>{{ info.date }}</p>

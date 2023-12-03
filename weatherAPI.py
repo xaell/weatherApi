@@ -1,14 +1,11 @@
 from flask import Flask, render_template, request, abort, Response, url_for, flash, redirect
 
+from geopy.geocoders import Nominatim
 import json
 import requests
-from usefulFunctions import get_date_day
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '4c27c7fb80966bf0f26f75a3ed9ce0782ebc3ab92e6e6a9b'
-
-city = "london"
-country = "england"
 
 def checkAPI(response):
     if (response.status_code == requests.codes.ok):
@@ -19,43 +16,62 @@ def checkAPI(response):
 @app.route('/', methods=['GET','POST'])
 @app.route('/weather', methods=['GET','POST'])
 def weather():
+    locator = Nominatim(user_agent="weatherAPI.py")
+    location = locator.geocode("Champ de Mars, Paris, France")
+
+    print("Latitude = {}, Longitude = {}".format(location.latitude, location.longitude))
+
+    if request.method == "POST":
+        #Get the info and replace city with it
+        city = request.form["cityName"]
+        country = request.form["countryName"]
+    else:
+        #Replace city with placeholder
+        city = 'new york city'
+        country = "new york"
+
     #empty dictionary
-    info = {}
-    #Placeholder
-    city = 'london'
     api_url = 'https://geocoding-api.open-meteo.com/v1/search?name={}&count=1&language=en&format=json'.format(city)
     response = requests.get(api_url)
     checkAPI(response)
     results = (json.loads(response.text).get("results"))[0]
-    name = results.get('name')
-    lat = round(results.get('latitude'))
-    long = round(results.get('longitude'))
-    country = results.get('country')
 
-    info["name"] = name
-    info["country"] = country
+    info = {
+        "city": city,
+        "country": country,
+        "lat": round(results.get('latitude')),
+        "long": round(results.get('longitude'))
+    }
 
     #get the weather
-    weather_url = "https://api.open-meteo.com/v1/forecast?latitude={}&longitude={}&daily=temperature_2m_max,temperature_2m_min&temperature_unit=fahrenheit&timezone=auto".format(round(lat,2),round(long,2))
+    weather_url = "https://api.open-meteo.com/v1/forecast?latitude={}&longitude={}&current=temperature_2m,apparent_temperature,wind_speed_10m&daily=apparent_temperature_max,apparent_temperature_min,wind_speed_10m_max&temperature_unit=fahrenheit&wind_speed_unit=mph&timezone=auto&forecast_days=7".format(round(info.get("lat"),2),round(info.get("long"),2))
     weather_response = requests.get(weather_url)
     checkAPI(weather_response)
-    results = json.loads(weather_response.text)   
+    
+    results = json.loads(weather_response.text)
+    #TODO:
+    #- Get the max and min and divide by 2
+    #- Display them
 
-    date = results.get("daily").get("time")
-    temperature_max = results.get("daily").get("temperature_2m_max")
-    temperature_min = results.get("daily").get("temperature_2m_min")
+    #DEBUGGING
+    print(results)
+    #DEBUGGING
 
-    info["date"] = date
-    info["Tmax"] = temperature_max
-    info["Tmin"] = temperature_min
+    #This will overwrite the last info hashmap!!!
+    info = {
+        "city": city,
+        "country": country,
+        "date": results.get("daily").get("time"),
+        "maxTemp": [round(num,2) for num in results.get("daily").get("apparent_temperature_max")]
+    }
 
     days_of_week = []
     for x in range(len(info['date'])):
         #get day and append
-        days_of_week.append(get_date_day(info["date"][x]))
+        days_of_week.append(info["date"][x])
     
     info["days"] = days_of_week
-        
+
     return render_template('weather.html', info = info)
 
 @app.route('/test', methods=['GET','POST'])
