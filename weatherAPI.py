@@ -8,39 +8,40 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = '4c27c7fb80966bf0f26f75a3ed9ce0782ebc3ab92e6e6a9b'
 
 def checkAPI(response):
-    if (response.status_code == requests.codes.ok):
-        print("Working")
-    else:
+    if (response.status_code != requests.codes.ok):
         print("Error: ", response.status_code)
 
 @app.route('/', methods=['GET','POST'])
 @app.route('/weather', methods=['GET','POST'])
 def weather():
     locator = Nominatim(user_agent="weatherAPI.py")
-    location = locator.geocode("Champ de Mars, Paris, France")
-
-    print("Latitude = {}, Longitude = {}".format(location.latitude, location.longitude))
 
     if request.method == "POST":
         #Get the info and replace city with it
         city = request.form["cityName"]
         country = request.form["countryName"]
+
+        stringBuilder = city + ", " + country
+        location = locator.geocode(stringBuilder)
+
     else:
-        #Replace city with placeholder
-        city = 'new york city'
+        #Replace city with initial placeholder
+        city = "new york city"
         country = "new york"
 
-    #empty dictionary
-    api_url = 'https://geocoding-api.open-meteo.com/v1/search?name={}&count=1&language=en&format=json'.format(city)
-    response = requests.get(api_url)
-    checkAPI(response)
-    results = (json.loads(response.text).get("results"))[0]
+        stringBuilder = city + ", " + country
+        location = locator.geocode(stringBuilder)
 
+    if location is None:
+        #This will just return the current webpage if a valid country isn't found
+        #Use js to give a warning about that
+        return redirect(url_for('weather'))
+    
     info = {
         "city": city,
         "country": country,
-        "lat": round(results.get('latitude')),
-        "long": round(results.get('longitude'))
+        "lat": round(location.latitude, 2),
+        "long": round(location.longitude, 2)
     }
 
     #get the weather
@@ -49,13 +50,12 @@ def weather():
     checkAPI(weather_response)
     
     results = json.loads(weather_response.text)
-    #TODO:
-    #- Get the max and min and divide by 2
-    #- Display them
 
+    """
     #DEBUGGING
     print(results)
     #DEBUGGING
+    """
 
     #This will overwrite the last info hashmap!!!
     info = {
