@@ -8,8 +8,7 @@
     background-size: cover;
     background-repeat: no-repeat;
     height: 100vh;
-    /*width: 100%;*/
-    padding-top: 210px;
+    padding-top: 130px;
 }
 #forecastInfo{
     position: absolute;
@@ -44,8 +43,17 @@
 }
 
 #errorMsg{
-    position: fixed;
-    background-color: blue;
-    color: red;
-    margin: 20px 0 20px 35%;
+    position: static;
+    color: rgb(141, 25, 66);
+    font-size: 12px;
+}
+
+#locationName{
+    margin-left: 76px;
+}
+
+#contact{
+    margin-left: 20px;
+    color: rgb(10, 16, 71);
+    font-size: 12px;
 }

@@ -5,8 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/weather.css') }}">
 {% endblock %}
 {% block content %}
-
   <div id = "home">
+    <h3 id = "locationName">{{info.city}}, {{info.country}}</h3>
     <div id = "forecastInfo">
       <div class="container">
         <div class="row">
@@ -48,14 +48,14 @@
         </div>
       </div>
 
+      <br>
       {% for msg in get_flashed_messages() %}
-        <p id = "errorMsg" align = "center">{{ msg }}</p>
+        <b><p id = "errorMsg" align = "center">{{ msg }}</p></b>
       {% endfor %}
 
       <form action = "#" method="post" align = "center">
-        <br>
-        <p>Country/State name: <input type = "text" name = "countryName"></p>
-        <p>City/town name: <input type = "text" name = "cityName"></p>
+        <p id = "countryInput">Country/State name: <input type = "text" name = "countryName"></p>
+        <p id = "cityInput">City/town name: <input type = "text" name = "cityName"></p>
         <p><input type = "submit" value="submit"></p>
       </form>
     </div> 

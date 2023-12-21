@@ -5,9 +5,11 @@ import json
 import requests
 
 from datetime import datetime
+import calendar
 
-#Saves the data of previous sessions
-info = []
+#Saves the location of previous sessions
+city = "New York City"
+country = "New York"
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '4c27c7fb80966bf0f26f75a3ed9ce0782ebc3ab92e6e6a9b'
@@ -31,18 +33,15 @@ def weather():
 
     else:
         #Replace city with initial placeholder
-        city = "new york city"
-        country = "new york"
+        city = "New York City"
+        country = "New York"
 
         stringBuilder = city + ", " + country
         location = locator.geocode(stringBuilder)
 
     if location is None:
-        #This will just return the current webpage if a valid country isn't found
-        #Use js to give a warning about that
         flash("Inputted location could not be found")
         return redirect(url_for('weather'))
-        #return redirect(url_for('weather'))
     
     info = {
         "city": city,
@@ -74,23 +73,12 @@ def weather():
 
     days_of_week = []
     for x in range(len(info['date'])):
-        #get day and append
-        #This should be a string
-        #Split into year, month, and day
-        days_of_week.append(info["date"][x])
-        #TODO!!!
+        my_date = datetime.strptime(info['date'][x], "%Y-%m-%d")
+        days_of_week.append(calendar.day_name[my_date.weekday()])
     
     info["days"] = days_of_week
 
     return render_template('weather.html', info = info)
-
-@app.route('/test', methods=['GET','POST'])
-def test():
-    if request.method == 'POST':
-        title = request.form['title']
-
-        print(title)
-    return render_template('test.html')
 
 #urlBuild = 'https://api.api-ninjas.com/v1/geocoding?city=' + city + '&country=' + country
 #open data from api
