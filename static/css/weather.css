@@ -42,3 +42,10 @@
     color: rgb(125, 125, 125);
     font-size: 18px;
 }
+
+#errorMsg{
+    position: fixed;
+    background-color: blue;
+    color: red;
+    margin: 20px 0 20px 35%;
+}

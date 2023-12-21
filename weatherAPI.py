@@ -1,8 +1,13 @@
-from flask import Flask, render_template, request, abort, Response, url_for, flash, redirect
+from flask import Flask, render_template, request, url_for, flash, redirect
 
 from geopy.geocoders import Nominatim
 import json
 import requests
+
+from datetime import datetime
+
+#Saves the data of previous sessions
+info = []
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = '4c27c7fb80966bf0f26f75a3ed9ce0782ebc3ab92e6e6a9b'
@@ -35,7 +40,9 @@ def weather():
     if location is None:
         #This will just return the current webpage if a valid country isn't found
         #Use js to give a warning about that
+        flash("Inputted location could not be found")
         return redirect(url_for('weather'))
+        #return redirect(url_for('weather'))
     
     info = {
         "city": city,
@@ -68,7 +75,10 @@ def weather():
     days_of_week = []
     for x in range(len(info['date'])):
         #get day and append
+        #This should be a string
+        #Split into year, month, and day
         days_of_week.append(info["date"][x])
+        #TODO!!!
     
     info["days"] = days_of_week
 
@@ -86,3 +96,10 @@ def test():
 #open data from api
 if __name__ == "__main__":
     app.run(debug = True)
+
+
+"""
+NOTE:
+1. Add error screen
+    - I think you can just use flask alerts, 
+"""
